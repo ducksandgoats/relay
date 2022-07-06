@@ -20,13 +20,20 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`
 
-if(!fs.existsSync(path.join(__dirname, 'folder'))){
-    fs.mkdirSync(path.join(__dirname, 'folder'))
+const dirData = path.join(__dirname, 'data')
+if(!fs.existsSync(dirData)){
+    fs.mkdirSync(dirData)
 }
-if(!fs.existsSync(path.join(__dirname, 'folder', 'index.html'))){
-    fs.writeFileSync(path.join(__dirname, 'folder', 'index.html'), html)
+const dirFolder = path.join(__dirname, 'folder')
+if(!fs.existsSync(dirFolder)){
+    fs.mkdirSync(dirFolder)
+}
+const dirFile = path.join(__dirname, 'folder', 'index.html')
+if(!fs.existsSync(dirFile)){
+    fs.writeFileSync(dirFile, html)
 }
 
-Gun({web: http.createServer(Gun.serve(path.join(__dirname, 'folder'))).listen(Number(process.env.PORT), '0.0.0.0'), peers: process.env.RELAYS.split(',').filter(Boolean), multicast: true, radisk: true, file: path.join(__dirname, 'data')})
+
+Gun({web: http.createServer(Gun.serve(dirFile)).listen(Number(process.env.PORT), '0.0.0.0'), peers: process.env.RELAYS.split(',').filter(Boolean), multicast: true, radisk: true, file: dirData})
 
 console.log('Relay peer started on port ' + process.env.PORT + ' with /gun')
