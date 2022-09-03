@@ -34,6 +34,6 @@ if(!fs.existsSync(dirFile)){
 }
 
 
-Gun({web: http.createServer(Gun.serve(dirFolder)).listen(Number(process.env.PORT), '0.0.0.0'), peers: process.env.RELAYS.split(',').filter(Boolean), multicast: true, radisk: true, file: dirData, axe: false})
+Gun({web: http.createServer(Gun.serve(dirFolder)).listen(Number(process.env.PORT), '0.0.0.0'), peers: process.env.RELAYS.split(',').filter(Boolean), multicast: true, radisk: true, file: dirData, axe: true})
 
 console.log('Relay peer started on port ' + process.env.PORT + ' with /gun')
